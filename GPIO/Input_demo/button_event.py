@@ -15,7 +15,7 @@ def gpio_init():
 
 
 def button_event(channel):
-    if GPIO.input(channel) == GPIO.HIGH:
+    if GPIO.input(18) == GPIO.HIGH:
         GPIO.output(16, 1)
     else:
         GPIO.output(16, 0)
