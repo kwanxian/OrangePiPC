@@ -22,9 +22,10 @@ if __name__ == '__main__':
             GPIO.output(16, 0)
             sleep(1)
     except KeyboardInterrupt:
-        exit(1)
         print("Stop")
+        exit(1)
     except Exception as err:
         print(err)
     finally:
         GPIO.cleanup()
+        print("GPIO clean up")
