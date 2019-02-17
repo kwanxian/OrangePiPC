@@ -35,8 +35,7 @@ if __name__ == '__main__':
         # 事件触发方式等待
         GPIO.add_event_detect(18, GPIO.RISING, callback=button_event, bouncetime=200)
         # 子线程等待
-        t1 = Thread(target=long_time_thread)
-        t1.start()
+        Thread(target=long_time_thread).start()
     except KeyboardInterrupt:
         print("stop")
     except Exception as err:
