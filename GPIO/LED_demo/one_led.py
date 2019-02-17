@@ -21,4 +21,4 @@ if __name__ == '__main__':
     except Exception as err:
         print(err)
     finally:
-        GPIO.clear()
+        GPIO.cleanup()
