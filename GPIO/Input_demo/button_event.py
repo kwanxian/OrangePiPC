@@ -3,6 +3,7 @@
 
 import OPi.GPIO as GPIO
 from time import sleep
+from threading import Thread
 
 
 def gpio_init():
@@ -15,18 +16,27 @@ def gpio_init():
 
 
 def button_event(channel):
-    if GPIO.input(18) == GPIO.HIGH:
+    if GPIO.input(channel) == GPIO.HIGH:
         GPIO.output(16, 1)
     else:
         GPIO.output(16, 0)
+
+
+def listen_event():
+    # 事件触发方式等待
+    GPIO.add_event_detect(18, GPIO.RISING, callback=button_event, bouncetime=200)
+    while True:
+        sleep(1)
+        pass
 
 
 if __name__ == '__main__':
     try:
         gpio_init()
         print("Press Ctrl + C to stop")
-        # 事件触发方式等待
-        GPIO.add_event_detect(18, GPIO.RISING, callback=button_event, bouncetime=200)
+        t1 = Thread(target=listen_event)
+        t1.setDaemon(True)
+        t1.start()
         while True:
             print("waiting")
             sleep(1)
