@@ -25,6 +25,7 @@ def button_event(channel):
 def long_time_thread():
     while True:
         sleep(1)
+        pass
 
 
 if __name__ == '__main__':
