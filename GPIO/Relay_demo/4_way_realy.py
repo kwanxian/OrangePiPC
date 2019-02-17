@@ -11,12 +11,12 @@ def gpio_init():
     GPIO.setup(16, GPIO.OUT)
     GPIO.setup(18, GPIO.OUT)
     GPIO.setup(26, GPIO.OUT)
-    GPIO.setup(27, GPIO.OUT)
+    GPIO.setup(29, GPIO.OUT)
     # 手上的继电器支持高低电平触发，这里以高电平触发演示，默认初始化时为低电平
     GPIO.output(16, 0)
     GPIO.output(18, 0)
     GPIO.output(26, 0)
-    GPIO.output(27, 0)
+    GPIO.output(29, 0)
     print("GPIO init success!")
 
 
@@ -34,9 +34,9 @@ def relay_ctrl(num):
         sleep(1)
         GPIO.output(26, 0)
     elif num == 4:
-        GPIO.output(27, 1)
+        GPIO.output(29, 1)
         sleep(1)
-        GPIO.output(27, 0)
+        GPIO.output(29, 0)
 
 
 if __name__ == '__main__':
