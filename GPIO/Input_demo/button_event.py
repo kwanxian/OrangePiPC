@@ -24,7 +24,7 @@ def button_event(channel):
 
 def long_time_thread():
     while True:
-        sleep(1)
+        sleep(1000)
         pass
 
 
@@ -34,8 +34,8 @@ if __name__ == '__main__':
         print("Press Ctrl + C to stop")
         # 事件触发方式等待
         GPIO.add_event_detect(18, GPIO.RISING, callback=button_event, bouncetime=200)
+        # 子线程等待
         t1 = Thread(target=long_time_thread)
-        t1.setDaemon(True)
         t1.start()
     except KeyboardInterrupt:
         print("stop")
