@@ -10,7 +10,7 @@ def gpio_init():
     GPIO.setmode(GPIO.BOARD)
     # 这个接口接到LED的正极，LED的负极接到GND即可
     GPIO.setup(16, GPIO.OUT)
-    GPIO.setup(12, GPIO.IN)
+    GPIO.setup(18, GPIO.IN)
     print("GPIO init success!")
 
 
@@ -18,7 +18,7 @@ if __name__ == '__main__':
     try:
         gpio_init()
         while True:
-            if GPIO.input(12) == GPIO.HIGH:
+            if GPIO.input(18) == GPIO.HIGH:
                 GPIO.output(16, 1)
             else:
                 GPIO.output(16, 0)
