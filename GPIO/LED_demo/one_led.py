@@ -19,6 +19,7 @@ if __name__ == '__main__':
             GPIO.output(16, 1)
             sleep(1)
             GPIO.output(16, 0)
+            sleep(1)
     except KeyboardInterrupt:
         exit(1)
     except Exception as err:
