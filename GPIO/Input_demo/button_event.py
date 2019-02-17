@@ -11,7 +11,7 @@ def gpio_init():
     GPIO.setmode(GPIO.BOARD)
     # 这个接口接到LED的正极，LED的负极接到GND即可
     GPIO.setup(16, GPIO.OUT)
-    GPIO.setup(18, GPIO.IN)
+    GPIO.setup(18, GPIO.IN, pull_up_down=GPIO.PUD_UP)
     print("GPIO init success!")
 
 
@@ -23,23 +23,20 @@ def button_event(channel):
 
 
 def listen_event():
-    # 事件触发方式等待
-    GPIO.add_event_detect(18, GPIO.RISING, callback=button_event, bouncetime=200)
     while True:
+        print("waiting")
         sleep(1)
-        pass
 
 
 if __name__ == '__main__':
     try:
         gpio_init()
         print("Press Ctrl + C to stop")
+        # 事件触发方式等待
+        GPIO.add_event_detect(18, GPIO.RISING, callback=button_event, bouncetime=200)
         t1 = Thread(target=listen_event)
         t1.setDaemon(True)
         t1.start()
-        while True:
-            print("waiting")
-            sleep(1)
     except KeyboardInterrupt:
         print("stop")
     except Exception as err:
