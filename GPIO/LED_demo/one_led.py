@@ -8,7 +8,6 @@ from time import sleep
 def gpio_init():
     GPIO.setboard(GPIO.PCPCPLUS)
     GPIO.setmode(GPIO.BOARD)
-    GPIO.setup(12, GPIO.OUT)
     GPIO.setup(16, GPIO.OUT)
     print("GPIO init success!")
 
@@ -16,15 +15,12 @@ def gpio_init():
 if __name__ == '__main__':
     try:
         gpio_init()
-        GPIO.output(12, 1)
-        GPIO.output(16, 1)
-        sleep(5)
-        GPIO.output(12, 0)
-        GPIO.output(16, 0)
-        # while True:
-        #     GPIO.output(12, 1)
-        #     sleep(1)
-        #     GPIO.output(12, 0)
+        while True:
+            GPIO.output(16, 1)
+            sleep(1)
+            GPIO.output(16, 0)
+    except KeyboardInterrupt:
+        exit(1)
     except Exception as err:
         print(err)
     finally:
