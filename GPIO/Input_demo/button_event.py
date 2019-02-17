@@ -27,7 +27,9 @@ if __name__ == '__main__':
     try:
         gpio_init()
         print("Press Ctrl + C to stop")
-        sleep(100)
+        while True:
+            print("waiting")
+            sleep(2)
     except KeyboardInterrupt:
         print("stop")
     except Exception as err:
