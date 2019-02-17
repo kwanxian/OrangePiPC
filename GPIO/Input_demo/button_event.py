@@ -2,7 +2,6 @@
 # encoding: utf-8
 
 import OPi.GPIO as GPIO, tkinter as tk
-from time import sleep
 
 
 # 事件触发方式等待
