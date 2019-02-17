@@ -14,19 +14,15 @@ def gpio_init():
     print("GPIO init success!")
 
 
-def button_event(channel):
-    if GPIO.input(channel) is GPIO.HIGH:
-        GPIO.output(16, 1)
-    else:
-        GPIO.output(16, 0)
-
-
 if __name__ == '__main__':
     try:
         gpio_init()
-        GPIO.add_event_detect(12, GPIO.RISING, callback=button_event, bouncetime=200)
         while True:
-            sleep(1)
+            if GPIO.input(12) == GPIO.HIGH:
+                GPIO.output(16, 1)
+            else:
+                GPIO.output(16, 0)
+            sleep(0.2)
     except Exception as err:
         print(err)
     finally:
