@@ -2,6 +2,7 @@
 # encoding: utf-8
 
 import OPi.GPIO as GPIO
+from time import sleep
 
 
 def gpio_init():
@@ -24,6 +25,8 @@ if __name__ == '__main__':
     try:
         gpio_init()
         GPIO.add_event_detect(12, GPIO.RISING, callback=button_event, bouncetime=1000)
+        while True:
+            sleep(10)
     except Exception as err:
         print(err)
     finally:
