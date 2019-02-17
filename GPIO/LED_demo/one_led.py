@@ -15,10 +15,12 @@ def gpio_init():
 if __name__ == '__main__':
     try:
         gpio_init()
-        while True:
-            GPIO.output(12, 1)
-            sleep(1)
-            GPIO.output(12, 0)
+        GPIO.output(12, 1)
+        sleep(5)
+        # while True:
+        #     GPIO.output(12, 1)
+        #     sleep(1)
+        #     GPIO.output(12, 0)
     except Exception as err:
         print(err)
     finally:
