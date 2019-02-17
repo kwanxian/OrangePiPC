@@ -9,7 +9,7 @@ from time import sleep
 def gpio_init():
     GPIO.setboard(GPIO.PCPCPLUS)
     GPIO.setmode(GPIO.BOARD)
-    # 这个接口接到LED的正极
+    # 这个接口接到LED的正极，LED的负极接到GND即可
     GPIO.setup(16, GPIO.OUT)
     print("GPIO init success!")
 
