@@ -6,7 +6,7 @@ from time import sleep
 
 
 def gpio_init():
-    GPIO.setboard(GPIO.PCPLUS)
+    GPIO.setboard(GPIO.PCPCPLUS)
     GPIO.setmode(GPIO.BOARD)
     GPIO.setup(12, GPIO.OUT, pull_up_down=GPIO.PUD_UP)
 
