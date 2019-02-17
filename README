@@ -1,3 +1,13 @@
 orange_pi_pc参考资料：
 http://www.orangepi.cn/orangepipc/index_cn.html
 https://linux-sunxi.org/Orange_Pi_PC
+
+System: Armbian_Linux
+Code:   Python3
+
+Libs:
+GPIO:https://pypi.org/project/OrangePi.GPIO/
+
+sudo apt install python3-dev
+curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
+sudo python3 get-pip.py
