@@ -22,7 +22,7 @@ if __name__ == '__main__':
                 GPIO.output(16, 1)
             else:
                 GPIO.output(16, 0)
-            sleep(0.2)
+            sleep(0.1)
     except Exception as err:
         print(err)
     finally:
