@@ -5,6 +5,14 @@ import OPi.GPIO as GPIO
 from time import sleep
 
 
+# 事件触发方式等待
+def button_event(channel):
+    if GPIO.input(channel) == GPIO.HIGH:
+        GPIO.output(16, 1)
+    else:
+        GPIO.output(16, 0)
+
+
 def gpio_init():
     GPIO.setboard(GPIO.PCPCPLUS)
     GPIO.setmode(GPIO.BOARD)
@@ -15,19 +23,10 @@ def gpio_init():
     print("GPIO init success!")
 
 
-def button_event(channel):
-    if GPIO.input(channel) == GPIO.HIGH:
-        GPIO.output(16, 1)
-    else:
-        GPIO.output(16, 0)
-
-
 if __name__ == '__main__':
     try:
         gpio_init()
         print("Press Ctrl + C to stop")
-        # 事件触发方式等待
-
         sleep(100)
     except KeyboardInterrupt:
         print("stop")
