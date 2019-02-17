@@ -8,6 +8,7 @@ from time import sleep
 def gpio_init():
     GPIO.setboard(GPIO.PCPCPLUS)
     GPIO.setmode(GPIO.BOARD)
+    GPIO.setup(12, GPIO.OUT)
     GPIO.setup(16, GPIO.OUT)
     print("GPIO init success!")
 
@@ -17,8 +18,10 @@ if __name__ == '__main__':
         gpio_init()
         print("Press Ctrl + C to Stop!")
         while True:
+            GPIO.output(12, 1)
             GPIO.output(16, 1)
             sleep(1)
+            GPIO.output(12, 0)
             GPIO.output(16, 0)
             sleep(1)
     except KeyboardInterrupt:
