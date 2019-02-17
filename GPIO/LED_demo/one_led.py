@@ -15,6 +15,7 @@ def gpio_init():
 if __name__ == '__main__':
     try:
         gpio_init()
+        print("Press Ctrl + C to Stop!")
         while True:
             GPIO.output(16, 1)
             sleep(1)
@@ -22,6 +23,7 @@ if __name__ == '__main__':
             sleep(1)
     except KeyboardInterrupt:
         exit(1)
+        print("Stop")
     except Exception as err:
         print(err)
     finally:
