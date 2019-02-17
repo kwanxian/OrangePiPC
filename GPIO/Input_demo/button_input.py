@@ -2,7 +2,6 @@
 # encoding: utf-8
 
 import OPi.GPIO as GPIO
-from time import sleep
 
 
 def gpio_init():
