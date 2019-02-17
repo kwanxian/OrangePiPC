@@ -50,7 +50,8 @@ if __name__ == '__main__':
             else:
                 print("Input Error")
             sleep(1)
-
+    except KeyboardInterrupt:
+        print("stop")
     except Exception as err:
         print(err)
     finally:
