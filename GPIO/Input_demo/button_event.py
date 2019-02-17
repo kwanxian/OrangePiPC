@@ -1,13 +1,12 @@
 #!/usr/bin/python3
 # encoding: utf-8
 
-import OPi.GPIO as GPIO
+import OPi.GPIO as GPIO, tkinter as tk
 from time import sleep
 
 
 # 事件触发方式等待
 def button_event(channel):
-    print("event")
     if GPIO.input(channel) == GPIO.HIGH:
         GPIO.output(16, 1)
     else:
@@ -27,12 +26,8 @@ def gpio_init():
 if __name__ == '__main__':
     try:
         gpio_init()
-        print("Press Ctrl + C to stop")
-        while True:
-            print("waiting")
-            sleep(2)
-    except KeyboardInterrupt:
-        print("stop")
+        app = tk.Tk()
+        app.mainloop()
     except Exception as err:
         print(err)
     finally:
