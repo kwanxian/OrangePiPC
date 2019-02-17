@@ -1,1 +1,4 @@
+参考资料：
+https://opi-gpio.readthedocs.io/en/latest/api-documentation.html
+
 sudo pip install OrangePi.GPIO
