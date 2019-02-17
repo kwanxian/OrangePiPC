@@ -24,8 +24,8 @@ def button_event(channel):
 if __name__ == '__main__':
     try:
         gpio_init()
+        GPIO.add_event_detect(12, GPIO.RISING, callback=button_event, bouncetime=200)
         while True:
-            GPIO.add_event_detect(12, GPIO.RISING, callback=button_event, bouncetime=200)
             sleep(1)
     except Exception as err:
         print(err)
