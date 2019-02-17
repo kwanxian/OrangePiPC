@@ -37,7 +37,7 @@ if __name__ == '__main__':
         t1 = Thread(target=listen_event)
         t1.setDaemon(True)
         t1.start()
-        sleep(1)
+        sleep(100)
     except KeyboardInterrupt:
         print("stop")
     except Exception as err:
