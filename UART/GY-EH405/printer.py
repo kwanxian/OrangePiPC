@@ -21,15 +21,18 @@ class printer(serial.Serial):
             print(err)
 
     # convert string to hex_code
-    def __str_to_hex(self, source_str):
+    def str_to_hex(source_str):
+        # 转换成十六进制,原字符串的1个字符对应2位十六位字符，大写显示
         s_str = source_str.encode('ascii').hex().upper()
         result_format = []
+        # 获取字符串元素及下标，当下标为奇数时，添加' '空格，因为打印格式要求
         for i in enumerate(s_str):
             obj = i[1]
             if i[0] == 0 or i[0] % 2 != 0:
                 result_format.append(obj)
             else:
                 result_format.append(' ' + obj)
+        # 重新拼接字符串
         result_format = ''.join(result_format)
         return result_format
 
