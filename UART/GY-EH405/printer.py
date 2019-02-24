@@ -21,7 +21,7 @@ class printer(serial.Serial):
             print(err)
 
     # convert string to hex_code
-    def str_to_hex(source_str):
+    def __str_to_hex(self, source_str):
         # 转换成十六进制,原字符串的1个字符对应2位十六位字符，大写显示
         s_str = source_str.encode('ascii').hex().upper()
         result_format = []
