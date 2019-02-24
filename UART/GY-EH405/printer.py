@@ -93,6 +93,9 @@ class printer(serial.Serial):
 if __name__ == '__main__':
     my_printer = printer("COM3")
     my_printer.enable()
-    my_printer.print_test()
-    my_printer.print_text_format("Hello World!")
-    my_printer.print_qrcode_format("Hello World!")
+    if my_printer.is_open:
+        my_printer.print_test()
+        my_printer.print_text_format("Hello World!")
+        my_printer.print_qrcode_format("Hello World!")
+    else:
+        print("Printer Not Ready!")
