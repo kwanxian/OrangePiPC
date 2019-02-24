@@ -19,10 +19,9 @@ def generate_students():
 
 
 def insert_students(count):
-    start = 0
-    while start < count:
+    while count:
         generate_students()
-        start += 1
+        count -= 1
     demo_db.insert_big_data(student_list)
 
 
@@ -38,5 +37,9 @@ if __name__ == '__main__':
 
     demo_db = my_db("./db/big_data.db")
     demo_db.create_student_table()
-    # insert_students(1000)
-    demo_db.select_order_result()
+    # insert_students(5000)
+    # demo_db.select_order_result()
+    demo_db.delete_data("Ran")
+    # demo_db.db_backup()
+    demo_db.db_export("big_data.db", "big_data.sql")
+    demo_db.db_conn.close()

@@ -13,11 +13,17 @@ class my_db:
         self.db_conn = sqlite3.connect(self.file)
         self.db_cursor = self.db_conn.cursor()
 
-    def backup_db(self):
-        system("sqlite3 ./db/demo.db .dump > ./db/demo.sql")
+    def db_backup(self):
+        with sqlite3.connect("./db/backup.db") as bck:
+            self.db_conn.backup(bck)
 
-    def recovery_db(self):
-        system("sqlite3 ./db/demo.db < ./db/demo.sql")
+    def db_export(self, db_name, target_name):
+        cmd = "sqlite3 ./db/{} .dump > ./db/{}".format(db_name, target_name)
+        system(cmd)
+
+    def db_import(self, db_name, file_name):
+        cmd = "sqlite3 ./db/{} < ./db/{}".format(db_name, file_name)
+        system(cmd)
 
     def create_student_table(self):
         # 如果表存在就删除旧表
