@@ -35,20 +35,14 @@ class my_db:
         self.db_conn.commit()
 
     def get_table_name(self):
-        try:
-            result = self.db_cursor.execute("select name from sqlite_master where type = 'table").fetchall()
-            result = [tuple[0] for tuple in result]
-            return result
-        except Exception as err:
-            print("Search_Table_Name Error: %s" % str(err))
+        result = self.db_cursor.execute("select name from sqlite_master where type = 'table").fetchall()
+        result = [tuple[0] for tuple in result]
+        return result
 
     def get_table_title(self):
-        try:
-            result = self.db_cursor.execute("select * from students").description
-            result = [tuple[0] for tuple in result]
-            return result
-        except Exception as err:
-            print("Search_Table_Title Error: %s" % str(err))
+        result = self.db_cursor.execute("select * from students").description
+        result = [tuple[0] for tuple in result]
+        return result
 
     def format_result(self,data):
         title = self.get_table_title()
@@ -57,63 +51,49 @@ class my_db:
             print(i)
 
     def insert_data(self, data):
-        try:
-            self.db_cursor.execute("insert into students (name,sex,age,note,update_time) "
-                                   "values (?,?,?,?,?)",
-                                   (data.name, data.sex, data.age, data.note, data.update_time))
-            self.db_conn.commit()
-        except Exception as err:
-            print("Insert Error: %s" % str(err))
+        self.db_cursor.execute("insert into students (name,sex,age,note,update_time) "
+                               "values (?,?,?,?,?)",
+                               (data.name, data.sex, data.age, data.note, data.update_time))
+        self.db_conn.commit()
 
     def delete_data(self, name):
-        try:
-            self.db_cursor.execute("delete from students where name = (?)", (name,))
-            self.db_conn.commit()
-        except Exception as err:
-            print("Delete Error: %s" % str(err))
+        self.db_cursor.execute("delete from students where name = (?)", (name,))
+        self.db_conn.commit()
 
     def update_data(self, name, age):
-        try:
-            self.db_cursor.execute("update students set age = (?) where name = (?)", (age, name))
-            self.db_conn.commit()
-        except Exception as err:
-            print("Update Error: %s" % str(err))
+        self.db_cursor.execute("update students set age = (?) where name = (?)", (age, name))
+        self.db_conn.commit()
 
     def search_data(self, name):
-        try:
-            result = self.db_cursor.execute("select * from students where name = (?)", (name,))
-            result = result.fetchall()
-            self.format_result(result)
-        except Exception as err:
-            print("Search Error: %s" % str(err))
+        result = self.db_cursor.execute("select * from students where name = (?)", (name,))
+        result = result.fetchall()
+        self.format_result(result)
 
     def reset_table(self):
-        try:
-            self.db_cursor.execute("delete from students")
-            self.db_cursor.execute("update sqlite_sequence set seq = 0 where name = 'students'")
-            self.db_conn.commit()
-        except Exception as err:
-            print("Reset Error: %s" % str(err))
+        self.db_cursor.execute("delete from students")
+        self.db_cursor.execute("update sqlite_sequence set seq = 0 where name = 'students'")
+        self.db_conn.commit()
 
     def select_time_data(self, time_value):
-        try:
-            result = self.db_cursor.execute("select * from students where update_time > (?)",
-                                            (time_value,))
-            result = result.fetchall()
-            print("-" * 100)
-            self.format_result(result)
-        except Exception as err:
-            print("Search Error: %s" % str(err))
+        result = self.db_cursor.execute("select * from students where update_time > (?)",(time_value,))
+        result = result.fetchall()
+        print("-" * 100)
+        self.format_result(result)
 
     def select_order_result(self):
-        try:
-            # asc | desc
-            result = self.db_cursor.execute("select * from students order by update_time desc")
-            result = result.fetchall()
-            print("-" * 100)
-            self.format_result(result)
-        except Exception as err:
-            print("Order By Error: %s" % str(err))
+        # asc | desc
+        result = self.db_cursor.execute("select * from students order by id desc")
+        result = result.fetchall()
+        print("-" * 100)
+        self.format_result(result)
+
+    def insert_big_data(self, data_list):
+        for i in data_list:
+            self.db_cursor.execute("insert into students (name,sex,age,note,update_time) "
+                                   "values (?,?,?,?,?)",
+                                   (i.name, i.sex, i.age, i.note, i.update_time))
+        self.db_conn.commit()
+
 
 class student_obj:
     def __init__(self,name, sex, age, note):
@@ -132,6 +112,6 @@ if __name__ == '__main__':
     demo_db.update_data("Mick", 20)
     demo_db.search_data("Mick")
     demo_db.delete_data("Jack")
-    demo_db.select_time_data("2019-02-24")
+    demo_db.select_time_data("2019-02-24 16:00:00")
     demo_db.select_order_result()
     demo_db.db_conn.close()
