@@ -4,6 +4,7 @@
 
 import sqlite3
 from datetime import datetime
+from os import system
 
 
 class my_db:
@@ -11,6 +12,12 @@ class my_db:
         self.file = db_file
         self.db_conn = sqlite3.connect(self.file)
         self.db_cursor = self.db_conn.cursor()
+
+    def backup_db(self):
+        system("sqlite3 ./db/demo.db .dump > ./db/demo.sql")
+
+    def recovery_db(self):
+        system("sqlite3 ./db/demo.db < ./db/demo.sql")
 
     def create_student_table(self):
         # 如果表存在就删除旧表
@@ -27,18 +34,33 @@ class my_db:
         self.db_cursor.executescript(script)
         self.db_conn.commit()
 
+    def get_table_name(self):
+        try:
+            result = self.db_cursor.execute("select name from sqlite_master where type = 'table").fetchall()
+            result = [tuple[0] for tuple in result]
+            return result
+        except Exception as err:
+            print("Search_Table_Name Error: %s" % str(err))
+
+    def get_table_title(self):
+        try:
+            result = self.db_cursor.execute("select * from students").description
+            result = [tuple[0] for tuple in result]
+            return result
+        except Exception as err:
+            print("Search_Table_Title Error: %s" % str(err))
+
     def format_result(self,data):
-        title = ("id", "name", "sex", "age", "note", "update_time")
+        title = self.get_table_title()
+        data = [dict(zip(title, i)) for i in data]
         for i in data:
-            data = dict(zip(title, i))
-            print(data)
+            print(i)
 
     def insert_data(self, data):
         try:
-            update_time = datetime.strftime(datetime.now(), "%Y-%m-%d %H:%M:%S")
             self.db_cursor.execute("insert into students (name,sex,age,note,update_time) "
                                    "values (?,?,?,?,?)",
-                                   (data.name, data.sex, data.age, data.note, update_time))
+                                   (data.name, data.sex, data.age, data.note, data.update_time))
             self.db_conn.commit()
         except Exception as err:
             print("Insert Error: %s" % str(err))
@@ -78,11 +100,20 @@ class my_db:
             result = self.db_cursor.execute("select * from students where update_time > (?)",
                                             (time_value,))
             result = result.fetchall()
-            print("-" * 40)
+            print("-" * 100)
             self.format_result(result)
         except Exception as err:
             print("Search Error: %s" % str(err))
 
+    def select_order_result(self):
+        try:
+            # asc | desc
+            result = self.db_cursor.execute("select * from students order by update_time desc")
+            result = result.fetchall()
+            print("-" * 100)
+            self.format_result(result)
+        except Exception as err:
+            print("Order By Error: %s" % str(err))
 
 class student_obj:
     def __init__(self,name, sex, age, note):
@@ -90,6 +121,7 @@ class student_obj:
         self.sex = sex
         self.age = age
         self.note = note
+        self.update_time = datetime.strftime(datetime.now(), "%Y-%m-%d %H:%M:%S")
 
 
 if __name__ == '__main__':
@@ -100,5 +132,6 @@ if __name__ == '__main__':
     demo_db.update_data("Mick", 20)
     demo_db.search_data("Mick")
     demo_db.delete_data("Jack")
-    demo_db.select_time_data("2019-02-23 23:50:50")
+    demo_db.select_time_data("2019-02-24")
+    demo_db.select_order_result()
     demo_db.db_conn.close()
