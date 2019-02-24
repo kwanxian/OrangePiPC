@@ -29,6 +29,7 @@ class scanner(serial.Serial):
 
 
 if __name__ == '__main__':
+    # on linux use '/dev/ttyS*'
     my_scanner = scanner("COM3")
     my_scanner.scan_init()
     try:
