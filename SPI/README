@@ -17,7 +17,7 @@ save & reboot again.
 then you can see spi enable in "/dev/spidev0.0".
 
 cd ./SPI_Python
-sudo python3 setup.py
+sudo python3 setup.py install
 
 cd ../RC522
 sudo python3 Read.py
