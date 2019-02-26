@@ -2,6 +2,18 @@ Info：
 https://github.com/lthiery/SPI-Py
 https://github.com/mxgxw/MFRC522-python
 
+You can use this image for reference.
+
+Name	Pin #	Pin name
+SDA	    24	    GPIO8
+SCK	    23	    GPIO11
+MOSI	19	    GPIO10
+MISO	21	    GPIO9
+IRQ	    None	None
+GND	    Any     Ground
+RST	    22	    GPIO25
+3.3V	1	    3V3
+
 Evn：
 Armbian 5.75
 
