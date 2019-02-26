@@ -1,1 +1,37 @@
-sudo pip install spidev
+Info：
+https://github.com/lthiery/SPI-Py
+https://github.com/mxgxw/MFRC522-python
+
+Evn：
+Armbian 5.75
+
+sudo armbian-config
+System --> Hardware --> select "spi-spidev" --> Confirm --> reboot
+
+reboot finish:
+sudo vim /boot/armbianEnv.txt
+under "overlays=spi-spidev",add this:
+"param_spidev_spi_bus=0"
+save & reboot again.
+
+then you can see spi enable in "/dev/spidev0.0".
+
+cd ./SPI_Python
+sudo python3 setup.py
+
+cd ../RC522
+sudo python3 Read.py
+
+you can test IC card like this:
+
+Welcome to the MFRC522 data read example
+Press Ctrl-C to stop.
+Card detected
+Card read UID: 53,101,232,169
+Size: 8
+Sector 8 [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+Card detected
+Card read UID: 53,101,232,169
+Size: 8
+Sector 8 [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+
