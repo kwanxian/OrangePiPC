@@ -5,10 +5,7 @@ def transact():
 	data_out = (0xFF,0x00,0xFA)
 	# Open file descriptor for 
 	# spi device 0 using the CE0 pin for chip select
-	device_0 =  spi.openSPI(device="/dev/spidev0.0",
-							mode=0,
-							speed=1000000)
-							
+	device_0 =  spi.openSPI(device="/dev/spidev0.0", mode=0, speed=1000000)				
 	print("**")
 	print(device_0)
 
